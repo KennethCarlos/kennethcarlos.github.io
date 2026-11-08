@@ -53,10 +53,10 @@
   <div class="wrap">
     <div>
       <img class="logo" src="../img/chi/chi_logo.webp" alt="CHI logo: a glowing calabash with uli carvings" width="400" height="363">
-      <div class="eyebrow">HTML5 playable ad · solo · Nov 2026</div>
+      <div class="eyebrow">HTML5 playable ad</div>
       <h1>CHI: Before Dawn</h1>
       <p class="lead">A mother prayed for her dying son. Chi, his guardian angel, carries that prayer to the gods in a calabash that holds the boy's life, and crows try to stop him before dawn. Tap a crow to sling it.</p>
-      <p class="muted">I built this playable ad for my own game: the art and animation in Blender, the gameplay and game feel in TypeScript and Three.js, and one HTML file that a phone can run.</p>
+      <p class="muted">I built this playable ad for my own game: the art and animation was done in Blender, the gameplay and game feel in TypeScript and Three.js, and one HTML file that a phone can run.</p>
       <div class="row">
         <a class="btn solid" href="play/" target="_blank" rel="noopener">Play full screen ↗</a>
         <a class="btn" href="#pipeline">How it was made</a>
@@ -91,7 +91,7 @@
     <div class="grid g2">
       <div>
         <p>A playable ad has a few seconds to teach a verb, give a payoff and hand over to the store. It must load fast on a weak phone and fit in one file. I wanted the ad to work on those terms and also to show every step of a playable-ads technical artist's job: Blender assets exported to GLB, gameplay in JavaScript/TypeScript, game feel, mobile performance, and AI coding tools that I direct and fully understand.</p>
-        <p>CHI: Before Dawn is a Unity 6 game, but its WebGL build is 49 MB and ran at 3–16 fps on a phone. So the ad is a separate Three.js build that reuses the game's characters, story and rules.</p>
+        <p>CHI: Before Dawn although still in development,  is a Unity 6 game, but its WebGL build is 49 MB and ran at 3–16 fps on a phone. So the ad is a separate Three.js build that reuses the game's characters, story and rules.</p>
       </div>
       <div class="card">
         <h3>Targets</h3>
@@ -137,7 +137,7 @@
       <div>
         <h3>Chi, the hero</h3>
         <ul class="ticks">
-          <li>Exported from the game's Blender 5.2 rig. The first GLB was 73 MB because of an 8K normal map; without it Chi was 0.28 MB.</li>
+          <li>I modelled and animated the character and props in Blender and exported the GLB files. The first GLB was 73 MB because of an 8K normal map; without it Chi was 0.28 MB.</li>
           <li>Textured with a flat colour block-out, an AO bake, and a procedural pass driven by baked position and normal maps, so the uli patterns cross UV seams.</li>
           <li><b>Clip merging:</b> glTF stores a channel, sampler and two accessors per bone property per clip (10,464 channels). My pack script lays all clips on one timeline, drops tracks that never move and folds constant ones into the rest pose: 325 channels left, and the clips are cut back out at load time. <b>4.1 MB → 496 KB.</b></li>
           <li>Later size pass: only the 5 clips the ad plays, and the mesh decimated to 60% (33k → 20k triangles) with no seam tearing: <b>374 KB</b>.</li>
@@ -146,8 +146,8 @@
     </div>
 
     <div class="grid g3" style="margin-top:28px">
-      <div class="card"><h3>Crow</h3><p>Modelled and rigged by a Python script in Blender: 274 triangles, flat shaded, ember eyes, Flap / Glide / Dive / Caw. The boss is the same mesh ×3.9 with a crest. 20 KB packed. Passes a 40 px silhouette test against the sky.</p></div>
-      <div class="card"><h3>Village kit</h3><p>Ten props in one flat palette texture (20 KB, no alpha), 1,230 triangles, 60 KB packed. Placed by an authored layout in code with instancing: a winding path, river and bridge, a market, walled compounds, fields and a sacred grove.</p></div>
+      <div class="card"><h3>Crow</h3><p>Modelled and rigged in Blender: 274 triangles, flat shaded, ember eyes, Flap / Glide / Dive / Caw. The boss is the same mesh ×3.9 with a crest. 20 KB packed. Passes a 40 px silhouette test against the sky.</p></div>
+      <div class="card"><h3>Village kit</h3><p>The village prop were also modeled in blender. Ten props in one flat palette texture (20 KB, no alpha), 1,230 triangles, 60 KB packed. Placed by an authored layout in code with instancing: a winding path, river and bridge, a market, walled compounds, fields and a sacred grove.</p></div>
       <div class="card"><h3>Built in code</h3><p>Sky with the sun in one shader, parallax hills, terrain with vertex colours, path and river ribbons, pebbles, smoke, and 57 villagers and 7 dogs animated procedurally in 8 draw calls. No new textures.</p></div>
     </div>
 
