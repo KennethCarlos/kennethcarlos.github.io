@@ -86,29 +86,6 @@
 
 <section>
   <div class="wrap">
-    <div class="eyebrow">The brief I set myself</div>
-    <h2>A real ad, and evidence of the whole job</h2>
-    <div class="grid g2">
-      <div>
-        <p>A playable ad has a few seconds to teach a verb, give a payoff and hand over to the store. It must load fast on a weak phone and fit in one file. I wanted the ad to work on those terms and also to show every step of a playable-ads technical artist's job: Blender assets exported to GLB, gameplay in JavaScript/TypeScript, game feel, mobile performance, and AI coding tools that I direct and fully understand.</p>
-        <p>CHI: Before Dawn although still in development,  is a Unity 6 game, but its WebGL build is 49 MB and ran at 3–16 fps on a phone. So the ad is a separate Three.js build that reuses the game's characters, story and rules.</p>
-      </div>
-      <div class="card">
-        <h3>Targets</h3>
-        <ul class="ticks">
-          <li>One <code>index.html</code>, no external requests, ≤ 5 MB for the main networks and ≤ 2 MB for Meta</li>
-          <li>One verb (tap), taught in the first seconds without words</li>
-          <li>Readable at phone size in portrait and landscape</li>
-          <li>Works with and without sound</li>
-          <li>CTA can never be tapped by accident during play</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
     <div class="eyebrow">The loop</div>
     <h2>How a run plays</h2>
     <p class="lead">The run is paced by kills, not a fixed timeline, so a slow player still sees a full story. A small sun timer counts down to dawn, and the sky brightens as it runs.</p>
@@ -132,6 +109,13 @@
     <h2>Blender → GLB → one HTML file</h2>
     <p class="lead">Every step is a script I can rerun on its own: Blender exports, a texture export, a pack step and the build. The build prints a size report and fails above 5 MB.</p>
 
+    <h3 style="margin-top:32px">Chi: modelled, UV unwrapped, rigged and animated by me</h3>
+    <p>I created Chi in Blender, from the detailed sculpt to the game-ready mesh, then UV unwrapped it, rigged it and animated it. Every clip the ad plays is my own animation. The headdress feathers, bead strands, loincloth and calabash all have their own bones so they swing with the motion.</p>
+    <div class="grid g2" style="margin-top:20px">
+      <figure><img class="shot" loading="lazy" src="../img/chi/chi_sculpt_rig.webp" alt="Chi's sculpted high-detail model in Blender with the rig controls visible" width="834" height="969"><figcaption>The sculpt, with the rig's controls on top.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/chi/chi_lowpoly_rig.webp" alt="Chi's game-ready low-poly mesh in wireframe with the rig in Blender" width="838" height="980"><figcaption>The game-ready mesh and its topology, on the same rig: body, fingers, feathers, beads and cloth.</figcaption></figure>
+    </div>
+
     <div class="grid g2" style="margin-top:28px">
       <figure><img class="shot" loading="lazy" src="../img/chi/detail_front.webp" alt="Chi textured, front view" width="640" height="800"><figcaption>Chi, textured for the ad. One shared 1024 atlas covers Chi, the calabash and the sling (77% coverage, no overlap).</figcaption></figure>
       <div>
@@ -151,12 +135,12 @@
       <div class="card"><h3>Built in code</h3><p>Sky with the sun in one shader, parallax hills, terrain with vertex colours, path and river ribbons, pebbles, smoke, and 57 villagers and 7 dogs animated procedurally in 8 draw calls. No new textures.</p></div>
     </div>
 
-    <h3 style="margin-top:40px">The calabash is the health bar</h3>
-    <figure>
-      <img class="shot" loading="lazy" src="../img/chi/calabash_cracks.webp" alt="The calabash at four damage levels, cracks spreading and glowing" width="1200" height="300">
-      <figcaption>Healthy → critical. A mask texture (R glow, G crack order, B crack profile) drives a shader injected into the calabash's material: cracks open one stage at a time, leak gold light, and flare on each hit. Healing reverses them.</figcaption>
+    <h3 style="margin-top:40px">Low-poly environment assets</h3>
+    <p>I also modelled the low-poly assets used in the game: round and rectangular houses, the obi, a yam barn, compound walls, a clay pot, an ekwe drum, yam stacks, palms, plantain, shrubs, grasses, rocks and trees. Most are under 100 triangles, with textured and flat-palette versions.</p>
+    <figure style="margin-top:16px">
+      <img class="shot" loading="lazy" src="../img/chi/lowpoly_assets.webp" alt="Sheet of 27 low-poly assets with triangle counts and heights: houses, yam barn, walls, pots, drum, palms, grasses, rocks and trees" width="1792" height="1144">
+      <figcaption>The asset sheet, with each asset's triangle count and height.</figcaption>
     </figure>
-    <p style="margin-top:18px">The first cracks were 1 mm wide, which is a tenth of a pixel on a phone, so they could only read as faint squiggles. I redesigned the crack network on the 3D gourd itself: 12–15 cm jagged lines, 5–8 mm cores with a burnt rim, impacts on the camera-facing side, later hits branching off earlier ones. The contrast between gold core and dark rim is what reads as a crack at 25 px.</p>
   </div>
 </section>
 
@@ -221,37 +205,13 @@
   </div>
 </section>
 
-<section>
+<section id="stack">
   <div class="wrap">
-    <div class="eyebrow">Problems found and fixed</div>
-    <h2>Reading the code, not guessing</h2>
-    <div class="grid g2">
-      <div class="card bug"><h3>Chi's arm snapped after every shot</h3><p>I sampled the hand bone each frame: it jumped 87 cm in one frame and the total animation weight fell to 0, so three.js blended toward the bind pose. I rewrote the blending so the weights always sum to 1, one-shots clamp and hand back early, and each one-shot has two copies for back-to-back taps.</p></div>
-      <div class="card bug"><h3>Chi's texture was squeezed into 1/16 of the atlas</h3><p>gltfpack quantised the UVs and expected a texture transform on the material to decode them, but Chi's textures are assigned in code, so it was never written. Fixed with float UVs for +1.7 KB.</p></div>
-      <div class="card bug"><h3>An invisible button fired the CTA mid-game</h3><p>The hidden end card's button kept <code>pointer-events: auto</code> and swallowed taps in mid-screen. In a live ad that sends players to the store by accident. Fixed in CSS, and the handler ignores taps until the card is fully shown.</p></div>
-      <div class="card bug"><h3>UVs vanished in the pack step, twice</h3><p>Both optimisers treated UVs as unused because no texture referenced them, and Chi rendered black. Each tool needed its own keep-attributes flag.</p></div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="eyebrow">Process</div>
-    <h2>AI-assisted, fully understood</h2>
-    <div class="grid g2">
-      <div>
-        <p>I built this with Claude Code as a coding partner. I wrote the plan first (storyboard, size budgets, risk register), then worked in short loops: describe the change, review the code, run it in the browser, measure, and log what was decided and why in a development log.</p>
-        <p>The AI is fast at the code; my job is the direction and the judgement: what reads at phone size, what feels good, what to cut, and checking every claim with a number (frame time, bytes, bone positions, bot runs).</p>
-      </div>
-      <div class="card">
-        <h3>Stack</h3>
-        <ul class="chips">
-          <li>Blender 5.2 + Python</li><li>Three.js r187</li><li>TypeScript</li><li>Vite + single-file plugin</li><li>gltf-transform</li><li>gltfpack / meshopt</li><li>WebP</li><li>ffmpeg</li><li>Web Audio</li><li>ElevenLabs (SFX)</li><li>Google Flow (concepts)</li><li>Figma</li><li>Claude Code</li>
-        </ul>
-        <h3>Still to do</h3>
-        <p class="muted">Ad-network adapters (MRAID, Meta, Google), a 30 s cut for networks that cap playables, and testing on a low-end Android phone.</p>
-      </div>
-    </div>
+    <div class="eyebrow">Tools used</div>
+    <h2>Stack</h2>
+    <ul class="chips">
+      <li>Blender 5.2</li><li>Three.js r187</li><li>TypeScript</li><li>Vite + single-file plugin</li><li>gltf-transform</li><li>gltfpack / meshopt</li><li>WebP</li><li>ffmpeg</li><li>Web Audio</li><li>ElevenLabs (SFX)</li><li>Google Flow (concepts)</li><li>Figma</li><li>Claude Code</li>
+    </ul>
   </div>
 </section>
 
