@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CHI: Before Dawn · Playable Ad · Samuel Chimezie Okeke</title>
+<meta name="description" content="A one-file HTML5 playable ad for CHI: Before Dawn, built from Blender assets in Three.js and TypeScript. 1.75 MB, no network requests.">
+<meta property="og:title" content="CHI: Before Dawn · HTML5 playable ad">
+<meta property="og:description" content="Blender → GLB → Three.js/TypeScript. One HTML file, 1.75 MB, tuned for game feel on phones.">
+<meta property="og:image" content="../img/chi/08_dawn.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+  .hero { padding: 56px 0 64px; background: radial-gradient(1200px 500px at 70% -10%, rgba(242,184,75,.18), transparent 60%), radial-gradient(800px 400px at 0% 0%, rgba(239,122,90,.12), transparent 60%); }
+  .hero .wrap { display: grid; grid-template-columns: 1.25fr 1fr; gap: 40px; align-items: center; }
+  @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } }
+  .hero .logo { width: 170px; margin-bottom: 14px; filter: drop-shadow(0 0 22px rgba(242,184,75,.35)); }
+
+  /* phone frame with the live ad */
+  .phone { justify-self: center; width: min(340px, 86vw); aspect-ratio: 390 / 844; border-radius: 38px; padding: 10px; background: #0d0908; border: 1px solid #4a3836; box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 6px #241a18; position: relative; }
+  .phone .screen { width: 100%; height: 100%; border-radius: 28px; overflow: hidden; position: relative; background: #000; }
+  .phone img, .phone iframe { width: 100%; height: 100%; object-fit: cover; border: 0; display: block; }
+  .phone .start { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 12px; background: linear-gradient(to top, rgba(20,12,10,.75), rgba(20,12,10,.1) 60%); color: var(--text); text-align: center; cursor: pointer; border: 0; font: inherit; width: 100%; }
+  .phone .start small { color: var(--muted); font-size: 13px; }
+  .tap-ring { width: 74px; height: 74px; border-radius: 50%; border: 3px solid var(--gold); display: grid; place-items: center; animation: pulse 1.6s ease-in-out infinite; }
+  .tap-ring::after { content: ""; border-left: 22px solid var(--gold); border-top: 14px solid transparent; border-bottom: 14px solid transparent; margin-left: 6px; }
+  @keyframes pulse { 50% { transform: scale(1.08); box-shadow: 0 0 30px rgba(242,184,75,.45); } }
+  @media (prefers-reduced-motion: reduce) { .tap-ring { animation: none; } }
+
+  .beats { counter-reset: b; }
+  .bug { border-left: 3px solid var(--coral); }
+  .bug h3 { color: #ffb39c; }
+  .words { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; background: #6f8f5a; background: linear-gradient(#e9c7c9, #c6dba0); border-radius: 14px; padding: 20px; }
+  .words img { height: 38px; width: auto; }
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="../">Samuel Chimezie Okeke</a>
+  <ul>
+    <li><a href="#play">Play</a></li>
+    <li class="hide-sm"><a href="#pipeline">Pipeline</a></li>
+    <li class="hide-sm"><a href="#feel">Game feel</a></li>
+    <li class="hide-sm"><a href="#perf">Performance</a></li>
+    <li><a href="../#contact">Contact</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero" id="play">
+  <div class="wrap">
+    <div>
+      <img class="logo" src="../img/chi/chi_logo.webp" alt="CHI logo: a glowing calabash with uli carvings" width="400" height="363">
+      <div class="eyebrow">HTML5 playable ad · solo · Nov 2026</div>
+      <h1>CHI: Before Dawn</h1>
+      <p class="lead">A mother prayed for her dying son. Chi, his guardian angel, carries that prayer to the gods in a calabash that holds the boy's life, and crows try to stop him before dawn. Tap a crow to sling it.</p>
+      <p class="muted">I built this playable ad for my own game: the art and animation in Blender, the gameplay and game feel in TypeScript and Three.js, and one HTML file that a phone can run.</p>
+      <div class="row">
+        <a class="btn solid" href="play/" target="_blank" rel="noopener">Play full screen ↗</a>
+        <a class="btn" href="#pipeline">How it was made</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>1.75 MB</b><span>one HTML file, under Meta's 2 MB cap</span></div>
+        <div class="stat"><b>0</b><span>network requests: every asset is inlined</span></div>
+        <div class="stat"><b>496 → 374 KB</b><span>animated hero after clip merging and decimation</span></div>
+        <div class="stat"><b>~60 s</b><span>calm run, paced by the player's kills</span></div>
+      </div>
+    </div>
+
+    <div class="phone" aria-label="Playable ad in a phone frame">
+      <div class="screen" id="screen">
+        <img src="../img/chi/01_hook.webp" alt="Opening shot: Chi flying over a West African village at first light" width="540" height="1169">
+        <button class="start" id="start" aria-label="Play the ad here">
+          <span class="tap-ring" aria-hidden="true"></span>
+          <strong>Tap to play</strong>
+          <small>Sound on · 1.75 MB</small>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The brief I set myself</div>
+    <h2>A real ad, and evidence of the whole job</h2>
+    <div class="grid g2">
+      <div>
+        <p>A playable ad has a few seconds to teach a verb, give a payoff and hand over to the store. It must load fast on a weak phone and fit in one file. I wanted the ad to work on those terms and also to show every step of a playable-ads technical artist's job: Blender assets exported to GLB, gameplay in JavaScript/TypeScript, game feel, mobile performance, and AI coding tools that I direct and fully understand.</p>
+        <p>CHI: Before Dawn is a Unity 6 game, but its WebGL build is 49 MB and ran at 3–16 fps on a phone. So the ad is a separate Three.js build that reuses the game's characters, story and rules.</p>
+      </div>
+      <div class="card">
+        <h3>Targets</h3>
+        <ul class="ticks">
+          <li>One <code>index.html</code>, no external requests, ≤ 5 MB for the main networks and ≤ 2 MB for Meta</li>
+          <li>One verb (tap), taught in the first seconds without words</li>
+          <li>Readable at phone size in portrait and landscape</li>
+          <li>Works with and without sound</li>
+          <li>CTA can never be tapped by accident during play</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The loop</div>
+    <h2>How a run plays</h2>
+    <p class="lead">The run is paced by kills, not a fixed timeline, so a slow player still sees a full story. A small sun timer counts down to dawn, and the sky brightens as it runs.</p>
+    <div class="strip beats" style="margin-top:24px">
+      <figure><img class="shot" loading="lazy" src="../img/chi/01_hook.webp" alt="" width="540" height="1169"><figcaption><span class="num">Hook.</span> Time slows and a hand shows the first tap. "This calabash holds a child's life."</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/chi/02_build.webp" alt="" width="540" height="1169"><figcaption><span class="num">Build.</span> Single crows, then pairs. Each kill gives a stone, feathers, and light back to the calabash.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/chi/03_windup.webp" alt="" width="540" height="1169"><figcaption><span class="num">Shoot first.</span> A crow caws and gathers a black cloud at its beak. Kill it in the wind-up, or tap the cloud out of the air.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/chi/04_shield.webp" alt="" width="540" height="1169"><figcaption><span class="num">Shield crows.</span> After 12 kills: crows carrying a ward of Doubt. Three hits break it, one more kills.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/chi/05_boss.webp" alt="" width="540" height="1169"><figcaption><span class="num">Ugolọma.</span> A 6 s breather and a warning, then the boss alone: 7 shield hits, 10 body hits, and a rage phase.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/chi/06_critical.webp" alt="" width="540" height="1169"><figcaption><span class="num">Critical.</span> The calabash cracks, the heartbeat speeds up, the screen edge glows.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/chi/07_lost.webp" alt="" width="540" height="1169"><figcaption><span class="num">Lost.</span> Five clouds break the calabash. If time remains, the run restarts; the timer keeps counting.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/chi/08_dawn.webp" alt="" width="540" height="1169"><figcaption><span class="num">Dawn.</span> The sun clears the hills, the calabash heals, and PLAY NOW fades in slowly.</figcaption></figure>
+    </div>
+    <p class="muted" style="margin-top:12px">Frames are captured straight from the renderer; the HUD and text are HTML over the canvas and aren't in these stills. Play the ad above to see them.</p>
+  </div>
+</section>
+
+<section id="pipeline">
+  <div class="wrap">
+    <div class="eyebrow">Art and asset pipeline</div>
+    <h2>Blender → GLB → one HTML file</h2>
+    <p class="lead">Every step is a script I can rerun on its own: Blender exports, a texture export, a pack step and the build. The build prints a size report and fails above 5 MB.</p>
+
+    <div class="grid g2" style="margin-top:28px">
+      <figure><img class="shot" loading="lazy" src="../img/chi/detail_front.webp" alt="Chi textured, front view" width="640" height="800"><figcaption>Chi, textured for the ad. One shared 1024 atlas covers Chi, the calabash and the sling (77% coverage, no overlap).</figcaption></figure>
+      <div>
+        <h3>Chi, the hero</h3>
+        <ul class="ticks">
+          <li>Exported from the game's Blender 5.2 rig. The first GLB was 73 MB because of an 8K normal map; without it Chi was 0.28 MB.</li>
+          <li>Textured with a flat colour block-out, an AO bake, and a procedural pass driven by baked position and normal maps, so the uli patterns cross UV seams.</li>
+          <li><b>Clip merging:</b> glTF stores a channel, sampler and two accessors per bone property per clip (10,464 channels). My pack script lays all clips on one timeline, drops tracks that never move and folds constant ones into the rest pose: 325 channels left, and the clips are cut back out at load time. <b>4.1 MB → 496 KB.</b></li>
+          <li>Later size pass: only the 5 clips the ad plays, and the mesh decimated to 60% (33k → 20k triangles) with no seam tearing: <b>374 KB</b>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid g3" style="margin-top:28px">
+      <div class="card"><h3>Crow</h3><p>Modelled and rigged by a Python script in Blender: 274 triangles, flat shaded, ember eyes, Flap / Glide / Dive / Caw. The boss is the same mesh ×3.9 with a crest. 20 KB packed. Passes a 40 px silhouette test against the sky.</p></div>
+      <div class="card"><h3>Village kit</h3><p>Ten props in one flat palette texture (20 KB, no alpha), 1,230 triangles, 60 KB packed. Placed by an authored layout in code with instancing: a winding path, river and bridge, a market, walled compounds, fields and a sacred grove.</p></div>
+      <div class="card"><h3>Built in code</h3><p>Sky with the sun in one shader, parallax hills, terrain with vertex colours, path and river ribbons, pebbles, smoke, and 57 villagers and 7 dogs animated procedurally in 8 draw calls. No new textures.</p></div>
+    </div>
+
+    <h3 style="margin-top:40px">The calabash is the health bar</h3>
+    <figure>
+      <img class="shot" loading="lazy" src="../img/chi/calabash_cracks.webp" alt="The calabash at four damage levels, cracks spreading and glowing" width="1200" height="300">
+      <figcaption>Healthy → critical. A mask texture (R glow, G crack order, B crack profile) drives a shader injected into the calabash's material: cracks open one stage at a time, leak gold light, and flare on each hit. Healing reverses them.</figcaption>
+    </figure>
+    <p style="margin-top:18px">The first cracks were 1 mm wide, which is a tenth of a pixel on a phone, so they could only read as faint squiggles. I redesigned the crack network on the 3D gourd itself: 12–15 cm jagged lines, 5–8 mm cores with a burnt rim, impacts on the camera-facing side, later hits branching off earlier ones. The contrast between gold core and dark rim is what reads as a crack at 25 px.</p>
+  </div>
+</section>
+
+<section id="feel">
+  <div class="wrap">
+    <div class="eyebrow">Gameplay and game feel</div>
+    <h2>Code as a creative tool</h2>
+    <div class="grid g2">
+      <div>
+        <ul class="ticks">
+          <li><b>Hit-stop:</b> game time freezes 60 ms per kill, 100 ms per boss hit, 160 ms on the boss kill. Real-time systems keep running.</li>
+          <li><b>Trauma shake:</b> offset grows with trauma², from layered sines plus a little roll, applied just before render so the camera follow stays clean.</li>
+          <li><b>Particles:</b> two pooled systems (feathers, embers), 2 draw calls. Bursts inherit 70% of the flight velocity so they travel with the action. Motes of light fly from each kill into the calabash.</li>
+          <li><b>Readable threats:</b> the crow's caw and a dark orb at its beak are the window to answer. Taps pick the nearer target, crow or cloud, with a generous touch radius and aim assist.</li>
+          <li><b>Audio:</b> 11 sounds, decoded at boot so the first tap has sound; pitch jitter, rate-limited screeches, a heartbeat when critical, music ducking at dawn.</li>
+          <li><b>Before/after:</b> <code>?juice=0</code> turns off hit-stop, shake, particles, the crack shader and sound, for side-by-side comparison.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="card">
+          <h3>Tuned by play, not by the plan</h3>
+          <p>I first planned a 25–30 s rush. Playtesting changed it: a calm ~60 s run paced by kills (12 normal crows, 8 shield crows, then a breather and the boss), no slow-motion interruptions after the first tap, and PLAY NOW fading in over 2.8 s once time is up or the boss falls.</p>
+          <p>A swipe-to-dodge verb was built, tested and removed because it diluted the one-tap idea. The answer to a crow's attack became "shoot first", and later "shoot the cloud down", which kept one verb and added skill.</p>
+          <p class="muted">A test bot (<code>?bot=0.5</code>) plays at a set tap rate, so every pacing change was checked for fast, slow and idle players.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:36px">Minimal, Igbo-inspired UI</h3>
+    <p>The HUD is one small calabash with a flame for the boy's life: it shrinks, turns coral and beats faster as he weakens. Short words are carved uli art generated, cut out and cleaned up as tiny WebPs (about 5 KB each); sentences sit on a carved plank. Banners are see-through so crows show behind them.</p>
+    <div class="words" aria-label="Carved word art used in the ad">
+      <img loading="lazy" src="../img/chi/word_plus1.webp" alt="+1"><img loading="lazy" src="../img/chi/word_hit.webp" alt="Hit!"><img loading="lazy" src="../img/chi/word_swift.webp" alt="Swift!"><img loading="lazy" src="../img/chi/word_crack.webp" alt="Crack!"><img loading="lazy" src="../img/chi/word_shield_broken.webp" alt="Shield broken!"><img loading="lazy" src="../img/chi/word_ugoloma.webp" alt="Ugolọma"><img loading="lazy" src="../img/chi/word_one_more.webp" alt="One more!"><img loading="lazy" src="../img/chi/word_play_now.webp" alt="PLAY NOW">
+    </div>
+  </div>
+</section>
+
+<section id="perf">
+  <div class="wrap">
+    <div class="eyebrow">Mobile performance</div>
+    <h2>Measured, then cut</h2>
+    <div class="grid g2">
+      <div>
+        <ul class="ticks">
+          <li>All materials converted to Lambert: no PBR, much cheaper per pixel on phones.</li>
+          <li>An additive glow sprite stands in for bloom; no post-processing.</li>
+          <li>Resolution scaler: DPR capped at 2 and stepped down when frames stay above 20 ms.</li>
+          <li>Props, pebbles and villagers are instanced; the whole ground is one decal mesh.</li>
+          <li>Debug build only: lil-gui panel, fps/draw-call/triangle readout, free camera, grayscale value check. All stripped from the release by a compile-time flag.</li>
+        </ul>
+      </div>
+      <div class="scroll-x">
+        <table class="tbl">
+          <tr><th>Size pass</th><th>Saved</th><th>How</th></tr>
+          <tr><td>Chi clips</td><td>58 KB</td><td>ship only the 5 clips the ad plays</td></tr>
+          <tr><td>Chi mesh</td><td>121 KB</td><td>decimate to 60%, checked in close-up</td></tr>
+          <tr><td>Audio</td><td>54 KB</td><td>mono, lower bitrates per sound type</td></tr>
+          <tr><td>Atlas</td><td>31 KB</td><td>WebP q85 → q78, same at phone size</td></tr>
+          <tr><td><b>Release</b></td><td><b>2038 → 1788 KB</b></td><td>about 250 KB under Meta's 2 MB</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Problems found and fixed</div>
+    <h2>Reading the code, not guessing</h2>
+    <div class="grid g2">
+      <div class="card bug"><h3>Chi's arm snapped after every shot</h3><p>I sampled the hand bone each frame: it jumped 87 cm in one frame and the total animation weight fell to 0, so three.js blended toward the bind pose. I rewrote the blending so the weights always sum to 1, one-shots clamp and hand back early, and each one-shot has two copies for back-to-back taps.</p></div>
+      <div class="card bug"><h3>Chi's texture was squeezed into 1/16 of the atlas</h3><p>gltfpack quantised the UVs and expected a texture transform on the material to decode them, but Chi's textures are assigned in code, so it was never written. Fixed with float UVs for +1.7 KB.</p></div>
+      <div class="card bug"><h3>An invisible button fired the CTA mid-game</h3><p>The hidden end card's button kept <code>pointer-events: auto</code> and swallowed taps in mid-screen. In a live ad that sends players to the store by accident. Fixed in CSS, and the handler ignores taps until the card is fully shown.</p></div>
+      <div class="card bug"><h3>UVs vanished in the pack step, twice</h3><p>Both optimisers treated UVs as unused because no texture referenced them, and Chi rendered black. Each tool needed its own keep-attributes flag.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Process</div>
+    <h2>AI-assisted, fully understood</h2>
+    <div class="grid g2">
+      <div>
+        <p>I built this with Claude Code as a coding partner. I wrote the plan first (storyboard, size budgets, risk register), then worked in short loops: describe the change, review the code, run it in the browser, measure, and log what was decided and why in a development log.</p>
+        <p>The AI is fast at the code; my job is the direction and the judgement: what reads at phone size, what feels good, what to cut, and checking every claim with a number (frame time, bytes, bone positions, bot runs).</p>
+      </div>
+      <div class="card">
+        <h3>Stack</h3>
+        <ul class="chips">
+          <li>Blender 5.2 + Python</li><li>Three.js r187</li><li>TypeScript</li><li>Vite + single-file plugin</li><li>gltf-transform</li><li>gltfpack / meshopt</li><li>WebP</li><li>ffmpeg</li><li>Web Audio</li><li>ElevenLabs (SFX)</li><li>Google Flow (concepts)</li><li>Figma</li><li>Claude Code</li>
+        </ul>
+        <h3>Still to do</h3>
+        <p class="muted">Ad-network adapters (MRAID, Meta, Google), a 30 s cut for networks that cap playables, and testing on a low-end Android phone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap row" style="justify-content:space-between">
+    <span>© 2026 Samuel Chimezie Okeke · CHI: Before Dawn</span>
+    <a href="../">← All work</a>
+  </div>
+</footer>
+
+<script>
+  // Load the 1.75 MB ad only when asked, so the page itself stays light.
+  document.getElementById('start').addEventListener('click', function () {
+    var f = document.createElement('iframe');
+    f.src = 'play/';
+    f.title = 'CHI: Before Dawn playable ad';
+    f.allow = 'autoplay; fullscreen';
+    var s = document.getElementById('screen');
+    s.innerHTML = '';
+    s.appendChild(f);
+  });
+</script>
+</body>
+</html>
