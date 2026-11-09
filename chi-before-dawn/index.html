@@ -34,6 +34,7 @@
   .bug h3 { color: #ffb39c; }
   .words { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; background: #6f8f5a; background: linear-gradient(#e9c7c9, #c6dba0); border-radius: 14px; padding: 20px; }
   .words img { height: 38px; width: auto; }
+  .anim video { width: 100%; height: auto; aspect-ratio: 1; display: block; background: #281d1b; }
 </style>
 </head>
 <body>
@@ -114,6 +115,17 @@
     <div class="grid g2" style="margin-top:20px">
       <figure><img class="shot" loading="lazy" src="../img/chi/chi_sculpt_rig.webp" alt="Chi's sculpted high-detail model in Blender with the rig controls visible" width="834" height="969"><figcaption>The sculpt, with the rig's controls on top.</figcaption></figure>
       <figure><img class="shot" loading="lazy" src="../img/chi/chi_lowpoly_rig.webp" alt="Chi's game-ready low-poly mesh in wireframe with the rig in Blender" width="838" height="980"><figcaption>The game-ready mesh and its topology, on the same rig: body, fingers, feathers, beads and cloth.</figcaption></figure>
+    </div>
+
+    <h3 style="margin-top:32px">Gameplay animation</h3>
+    <p>A few clips from Chi's in-game animation set, from the same Blender file I export to the engine. Chi flies through the whole game, so every action is built on top of the swim pose, and the calabash, beads and tail keep moving after the body stops. Rendered in clay so the motion is easy to read.</p>
+    <div class="grid g3 anim" style="margin-top:16px">
+      <figure><video class="shot" src="../img/chi/anim/chi_swim.mp4" poster="../img/chi/anim/chi_swim.webp" autoplay muted loop playsinline preload="metadata" width="720" height="720" aria-label="Chi's swim cycle, side view"></video><figcaption><b>Swim.</b> The flying loop the other clips start from. The tail and calabash trail behind the body.</figcaption></figure>
+      <figure><video class="shot" src="../img/chi/anim/chi_sling.mp4" poster="../img/chi/anim/chi_sling.webp" autoplay muted loop playsinline preload="metadata" width="720" height="720" aria-label="Chi drawing, holding and releasing the sling, then reloading"></video><figcaption><b>Sling.</b> Draw, hold, release and reload, chained the way the game plays them.</figcaption></figure>
+      <figure><video class="shot" src="../img/chi/anim/chi_lunge.mp4" poster="../img/chi/anim/chi_lunge.webp" autoplay muted loop playsinline preload="metadata" width="720" height="720" aria-label="Chi lunging forward"></video><figcaption><b>Lunge.</b> A fast reach forward and back into the swim.</figcaption></figure>
+      <figure><video class="shot" src="../img/chi/anim/chi_smash.mp4" poster="../img/chi/anim/chi_smash.webp" autoplay muted loop playsinline preload="metadata" width="720" height="720" aria-label="Chi smashing with both hands"></video><figcaption><b>Smash.</b> A heavy close-range strike.</figcaption></figure>
+      <figure><video class="shot" src="../img/chi/anim/chi_harpoon.mp4" poster="../img/chi/anim/chi_harpoon.webp" autoplay muted loop playsinline preload="metadata" width="720" height="720" aria-label="Chi yanking a harpoon rope"></video><figcaption><b>Harpoon yank.</b> A hard pull back on the rope.</figcaption></figure>
+      <figure><video class="shot" src="../img/chi/anim/chi_hit.mp4" poster="../img/chi/anim/chi_hit.webp" autoplay muted loop playsinline preload="metadata" width="720" height="720" aria-label="Chi reacting to a hit from the left"></video><figcaption><b>Hit react.</b> Knocked from the left; the calabash swings out and settles.</figcaption></figure>
     </div>
 
     <div class="grid g2" style="margin-top:28px">
