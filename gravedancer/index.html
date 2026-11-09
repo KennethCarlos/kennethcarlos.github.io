@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gravedancer · Samuel Chimezie Okeke</title>
+<meta name="description" content="Gravedancer: a dual-sword R15 character for Roblox. Custom Blender control rig, game-ready animation, a Blender-to-Studio bridge and a Luau animation system.">
+<meta property="og:title" content="Gravedancer · R15 combat rig and animation for Roblox">
+<meta property="og:description" content="A production control rig for the 15-part Roblox body, hand-keyed animation and the runtime that plays it. By Samuel Chimezie Okeke.">
+<meta property="og:image" content="../img/gravedancer/idle_poster.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+  :root { --violet: #b48cff; }
+  .hero { padding: 56px 0 64px; background: radial-gradient(1100px 520px at 75% -10%, rgba(180,140,255,.18), transparent 60%), radial-gradient(800px 420px at 0% 0%, rgba(242,184,75,.10), transparent 60%); }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px 44px; align-items: center; }
+  @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } }
+  .hero .stats { grid-template-columns: repeat(2, 1fr); }
+  .quote { font-size: clamp(20px, 2.6vw, 26px); font-weight: 800; color: var(--violet); margin: 0 0 14px; }
+  .clip { width: 100%; aspect-ratio: 1; object-fit: cover; background: #2b2b2f; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+  .gallery { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); align-items: start; }
+  .gallery img { width: 100%; aspect-ratio: 9 / 11; object-fit: cover; background: #3a3a4c; }
+  .gallery.chars { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  @media (max-width: 680px) { .gallery.chars { grid-template-columns: repeat(2, 1fr); } }
+  .concepts { max-width: 760px; }
+  .gallery.sq img { aspect-ratio: 1; object-fit: contain; background: #d6d6d6; }
+  .gallery.props img { aspect-ratio: 1; object-fit: contain; background: #5c5c66; }
+  .rules { counter-reset: r; list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .rules li { counter-increment: r; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px 12px 48px; position: relative; }
+  .rules li::before { content: counter(r); position: absolute; left: 14px; top: 11px; width: 24px; height: 24px; border-radius: 50%; background: var(--violet); color: #1d1514; font-weight: 900; font-size: 14px; display: grid; place-items: center; }
+  .eyebrow.v { color: var(--violet); }
+  .wip { border-left: 3px solid var(--violet); }
+  .wip h3 { color: var(--violet); }
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 16px 0 0; font-weight: 800; font-size: 15px; }
+  .flow span { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
+  .flow i { color: var(--violet); font-style: normal; }
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="../">Samuel Chimezie Okeke</a>
+  <ul>
+    <li><a href="#animation">Animation</a></li>
+    <li class="hide-sm"><a href="#rig">Rig</a></li>
+    <li class="hide-sm"><a href="#pipeline">Pipeline</a></li>
+    <li class="hide-sm"><a href="#characters">Characters</a></li>
+    <li><a href="../#contact">Contact</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Roblox · rigging and animation · in development</div>
+      <h1>Gravedancer</h1>
+      <p class="quote">Hold. Snap. Flow.</p>
+      <p class="lead">A graveyard warden who fights skeletons with a funeral-rite blade dance, built on Roblox's standard 15-part R15 body.</p>
+      <p class="muted">This project is about the parts of a character you feel more than see. It has a full control rig in Blender that bakes down to the 15 R15 parts, hand-keyed game animation, a live bridge that sends clips from Blender straight into Roblox Studio, and a Luau animation system with layers, masks, markers and procedural IK.</p>
+      <div class="stats">
+        <div class="stat"><b>77</b><span>bones in the control rig</span></div>
+        <div class="stat"><b>16</b><span>exported: 15 parts + root</span></div>
+        <div class="stat"><b>30 fps</b><span>clips, specced frame by frame</span></div>
+        <div class="stat"><b>0</b><span>FBX in the animation pipeline</span></div>
+      </div>
+    </div>
+    <figure>
+      <video class="clip shot" src="../img/gravedancer/idle.mp4" poster="../img/gravedancer/idle_poster.webp" autoplay muted loop playsinline aria-label="The calm idle loop on the block body, swords on the back">
+        <img src="../img/gravedancer/idle.webp" alt="The calm idle loop on the block body, swords on the back">
+      </video>
+      <figcaption>The calm idle (<code>Idle_Sheathed</code>), a 40-frame loop, rendered from the animation file. It's uploaded and playing in game.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<main>
+
+<section id="animation">
+  <div class="wrap">
+    <div class="eyebrow v">Animation</div>
+    <h2>A motion style before a single key</h2>
+    <p class="lead">Before animating, I picked an archetype whose motion would show timing. The Gravedancer moves like a mourner: long, quiet holds, then a sudden cut, then a slow follow-through. That contrast shows off timing, arcs and overlap, and it works within R15's limits.</p>
+    <div class="grid g2" style="margin-top:24px">
+      <div>
+        <h3>Motion rules</h3>
+        <ol class="rules">
+          <li><b>Hold → snap → flow.</b> A calm hold, a cut that crosses its arc in 2–3 frames, then a long, smooth unwind. Never one even speed.</li>
+          <li><b>Spin, don't step.</b> Turns pivot on the ball of the planted foot. The chest leads the hips by 2–3 frames, then the hips catch up.</li>
+          <li><b>Two swords, never in unison.</b> When one cuts, the other trails or holds a guard.</li>
+          <li><b>Wide arcs.</b> The blade tip travels on a smooth curve, checked with motion paths. No straight jabs.</li>
+          <li><b>Long follow-through.</b> The body unwinds about 5° past the stance and settles back; the off-hand sword and head lag 1–2 frames.</li>
+          <li><b>Light and upright.</b> Hips stay high, and he lands softly on the ball of the foot.</li>
+        </ol>
+        <p class="muted" style="margin-top:14px">R15 can't key scale, so the style has to come from poses, timing contrast, arcs and trails alone.</p>
+      </div>
+      <div>
+        <h3>How the idle was built</h3>
+        <ul class="ticks">
+          <li>The warden at rest: upright and still, head slightly bowed, as if keeping watch over the graves.</li>
+          <li>A seamless 40-frame loop built with Cycles modifiers. Keys are offset per channel, so the body parts overlap instead of moving together.</li>
+          <li>Every looped curve's first key equals its last, and the clip range matches the cycle exactly. A longer range would make the wrist jump about 0.4 studs at the wrap.</li>
+          <li>Pulled into Studio with my bridge, saved to Roblox, and set as the zero-speed sample of the locomotion blend space.</li>
+          <li>The combat idle (swords drawn, 72 frames) is being blocked now.</li>
+        </ul>
+        <h3 style="margin-top:22px">Planned moveset</h3>
+        <p class="muted">Calm and combat idles, walk and run in both modes, start, stop and 180° pivot, leans, draw and sheath, a 3-hit combo, a charge-and-dash special, a dodge roll and an additive hit react. Every clip has its frame count, key poses and marker frames written down before I animate it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rig">
+  <div class="wrap">
+    <div class="eyebrow v">Rigging</div>
+    <h2>A production rig for a 15-part body</h2>
+    <p class="lead">R15 has no extra deform bones and Roblox can't key scale. So everything an animator expects (IK, foot roll, space switching, stretch) has to live in helper bones and bake down to the same 15 parts plus the root.</p>
+    <div class="grid g2" style="margin-top:20px">
+      <div>
+        <h3>Controls</h3>
+        <ul class="ticks">
+          <li><b>IK/FK on every limb</b>, blended by a keyable slider, with snap buttons both ways that don't pop.</li>
+          <li><b>Reverse foot:</b> heel, toe and ball pivots. The R15 legs are perfectly straight, so the IK chain is pre-bent 0.001 studs to give the solver a direction.</li>
+          <li><b>Torso:</b> root → centre of gravity → hips and chest as siblings, so each can twist on its own. A <code>waist_twist</code> slider shares part of the chest twist with the hips.</li>
+          <li><b>Head isolation</b> from 0 (follows the chest) to 1 (keeps its world direction).</li>
+          <li><b>Hand spaces:</b> world, hips, chest, head, plus a prop space for two-handed grips.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Working around R15</h3>
+        <ul class="ticks">
+          <li><b>Stretch by translation:</b> past full reach, the elbow or knee gap opens by half the overshoot and the wrist or ankle by the full amount.</li>
+          <li><b>Generic prop slots</b> instead of a sword bone, so the same rig and clips work with any weapon or with none.</li>
+          <li><b>Custom control shapes</b> ("Studwork"), modelled at real size and fitted to each R15 block. Left is red, right is blue, centre is yellow.</li>
+          <li><b>Locked channels</b> everywhere scale or the wrong axis could slip into a clip.</li>
+          <li>Animation lives in separate files that link the rig through a library override, so rig fixes reach every clip.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pipeline">
+  <div class="wrap">
+    <div class="eyebrow v">Pipeline and runtime</div>
+    <h2>Blender to Studio without FBX</h2>
+    <p class="lead">Studio can't export a rig as FBX, and FBX brings axis and scale problems. So I built a bridge: a Blender add-on and a Studio plugin that talk over localhost and send joint transforms directly.</p>
+    <div class="flow"><span>Blender control rig</span><i>→</i><span>bake to 16 bones</span><i>→</i><span>Start Bridge</span><i>→</i><span>Studio: Pull Animation</span><i>→</i><span>Save to Roblox</span><i>→</i><span>AnimConfig id</span></div>
+    <div class="grid g2" style="margin-top:28px">
+      <div>
+        <h3>Bridge</h3>
+        <ul class="ticks">
+          <li>Pose markers named <code>Name:Value</code> become Roblox keyframe markers: <code>HitStart</code>, <code>ComboWindow</code>, <code>Footstep:Left</code>, <code>Draw:Right</code>.</li>
+          <li>Root motion on the HumanoidRootPart is folded into the Root joint, so what I see in Blender is what plays in Studio.</li>
+          <li>A round-trip test compares a pose in Blender with the same pose pulled into Studio.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Luau animation system</h3>
+        <ul class="ticks">
+          <li>A state machine with a 2D blend space for locomotion, plus full-body and upper-body tracks for attacks while running.</li>
+          <li><b>Upper-body mask, tested in Studio:</b> the root and hip poses are weight-0 containers, so locomotion keeps the legs. My test readings showed the waist and shoulders at 1 and the root and hips at 0.</li>
+          <li>Additive layers and procedural foot IK applied as a post-pass on the joints.</li>
+          <li>A holster script welds the swords to the back or the hands, swapping them on <code>Draw</code> / <code>Sheath</code> markers.</li>
+          <li>A debug HUD (F1), modelled on Unreal's Animation Insights, lists every playing track with its priority, weight, speed and time, plus recent markers and transitions.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="gallery props" style="margin-top:24px">
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/sword_c_back.webp" alt="Block body from behind with two curved violet swords on its back" width="846" height="1000"><figcaption>Prop space 4: both swords on the back.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/sword_c_hands.webp" alt="Block body holding a curved violet sword in each hand" width="846" height="1000"><figcaption>Prop space 0: in the hands, through the grip slots.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/sword_c.webp" alt="Curved hollow sword with violet rim and cut-out windows" width="1000" height="1000"><figcaption>Sword C, with grip-marker cubes so Studio can rebuild the grip and the scale.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="characters">
+  <div class="wrap">
+    <div class="eyebrow v">Characters</div>
+    <h2>The Gravedancer and the Skeleton</h2>
+    <p class="lead">Both use Roblox's R15 Block body with rigid outfit pieces welded to each body part, coloured from a palette and with no textures. Every animation works on the stock body, and the only uploads are meshes.</p>
+    <div class="gallery chars" style="margin-top:24px">
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/gd_front34.webp" alt="The Gravedancer from the front: dark hood, bone-white mask, violet scarf, straps and wraps" width="900" height="1100"><figcaption>Gravedancer, front</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/gd_back34.webp" alt="The Gravedancer from behind, showing the ragged cape" width="900" height="1100"><figcaption>Back: ragged cape</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/gd_face.webp" alt="Close-up of the Gravedancer's mask with a violet slit" width="900" height="1100"><figcaption>Mask with a violet neon slit</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/sk_front34.webp" alt="Low-poly skeleton enemy with a loincloth and a rusted pauldron" width="900" height="1100"><figcaption>Skeleton enemy</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/sk_face.webp" alt="Close-up of the skeleton's skull with green glowing eyes" width="900" height="1100"><figcaption>Skull with green neon eyes</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/sk_sword.webp" alt="Notched rusty sword with a broken tip" width="900" height="1100"><figcaption>The skeleton's rusty sword</figcaption></figure>
+    </div>
+
+    <h3 style="margin-top:40px">Concept</h3>
+    <p class="muted">AI concept images made in Google Flow, used as a target for the character and the swords. I picked the curved, hollow sword with a glowing rim (top left) to build.</p>
+    <div class="grid g2 concepts" style="margin-top:14px">
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/concept_a.webp" alt="Concept: the hooded Gravedancer slashing through skeletons in a purple-lit graveyard" width="411" height="410" style="width:100%"><figcaption>Concept A: soft 3D render</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/concept_b.webp" alt="Concept: a flatter cel-shaded version of the Gravedancer among skeletons" width="411" height="410" style="width:100%"><figcaption>Concept B: flatter cel style</figcaption></figure>
+    </div>
+    <div class="gallery sq" style="margin-top:14px">
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/sword_concept_c.webp" alt="Curved hollow sword concept with a glowing violet rim" width="630" height="630"><figcaption>Chosen: curved, glowing rim</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/sword_concept_d.webp" alt="Curved hollow sword concept with a flat rim" width="630" height="630"><figcaption>Curved, flat rim</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/sword_concept_a.webp" alt="Straight sword concept with window cut-outs" width="630" height="630"><figcaption>Straight, window cut-outs</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/gravedancer/sword_concept_b.webp" alt="Straight sword concept with slot cut-outs" width="630" height="630"><figcaption>Straight, slot cut-outs</figcaption></figure>
+    </div>
+
+    <div class="card wip" style="margin-top:36px">
+      <h3>Still in progress</h3>
+      <p>The calm idle is in game. Next are the combat idle, the calm walk and run, and draw and sheath, then the combo. Still to come: a showcase map with a ramp and stairs to test foot IK, a capture video, and breakdowns of the rig and the animation graph.</p>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="eyebrow">Tools used</div>
+    <h2>Stack</h2>
+    <ul class="chips">
+      <li>Blender 5.2</li><li>Roblox Studio</li><li>Luau</li><li>Rojo</li><li>Google Flow (concepts)</li><li>Claude Code</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap row" style="justify-content:space-between">
+    <span>© 2026 Samuel Chimezie Okeke · Gravedancer</span>
+    <a href="../">← All work</a>
+  </div>
+</footer>
+</body>
+</html>
