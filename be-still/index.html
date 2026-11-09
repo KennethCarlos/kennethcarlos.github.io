@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Be Still · Samuel Chimezie Okeke</title>
+<meta name="description" content="Be Still: a one-control encounter with a fire fox in a Finnish winter forest at night. Unity 6 URP, custom rig and animation, shell fur and flame shaders, for PC and the browser.">
+<meta property="og:title" content="Be Still · a fire fox in a winter forest">
+<meta property="og:description" content="Stand still and the fox comes to you. Rig, animation, shaders and behaviour by Samuel Chimezie Okeke.">
+<meta property="og:image" content="../img/bestill/hero_ingame.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+  .hero { padding: 56px 0 64px; background: radial-gradient(1100px 520px at 75% -10%, rgba(92,200,192,.16), transparent 60%), radial-gradient(800px 420px at 0% 0%, rgba(239,122,90,.12), transparent 60%); }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 40px; align-items: end; }
+  .hero figure { grid-column: 1 / -1; margin-top: 24px; }
+  @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } }
+  .hero .shot { box-shadow: 0 30px 80px rgba(0,0,0,.5); width: 100%; }
+  .hero .stats { margin: 0; }
+  .gallery { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); align-items: start; }
+  .gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: #3f4e66; }
+  .gallery.animals img { background: #5f5f63; }
+  .quote { font-size: clamp(20px, 2.6vw, 26px); font-weight: 800; color: var(--teal); margin: 0 0 14px; }
+  .strip { grid-auto-columns: minmax(280px, 1fr); }
+  .wip { border-left: 3px solid var(--teal); }
+  .wip h3 { color: #9fe3dc; }
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="../">Samuel Chimezie Okeke</a>
+  <ul>
+    <li><a href="#encounter">Encounter</a></li>
+    <li class="hide-sm"><a href="#fox">The fox</a></li>
+    <li class="hide-sm"><a href="#world">World</a></li>
+    <li class="hide-sm"><a href="#tech">Shaders</a></li>
+    <li><a href="../#contact">Contact</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Interactive piece · in development</div>
+      <h1>Be Still</h1>
+      <p class="quote">Metsä katsoo. The forest is watching.</p>
+      <p class="lead">A winter night in a Finnish forest. Your torch dies, and eyes open between the trees. If you stop walking, a fire fox comes out of the dark to meet you. Move, and it's gone.</p>
+      <p class="muted">The whole game uses one control. Hold to walk, move the mouse to look, and let go to stand still. I modelled, textured, rigged and animated the fox, and I made the shaders that give it fur and fire and the behaviour that decides how close it dares to come.</p>
+    </div>
+    <div>
+      <div class="stats">
+        <div class="stat"><b>1</b><span>control: walk or stand still</span></div>
+        <div class="stat"><b>15</b><span>fox animation clips</span></div>
+        <div class="stat"><b>56</b><span>deform bones, face included</span></div>
+        <div class="stat"><b>PC + web</b><span>Unity 6 URP, one project</span></div>
+      </div>
+    </div>
+    <figure>
+      <img class="shot" src="../img/bestill/hero_ingame.webp" alt="In game: the fire fox looks up at the player with gold eyes, its flame tail raised behind it in the snowy forest" width="1600" height="720">
+      <figcaption>In game, from the player's eyes: the fox looks up at you as it comes to trust you.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<main>
+
+<section id="encounter">
+  <div class="wrap">
+    <div class="eyebrow">The encounter</div>
+    <h2>Trust is the only mechanic</h2>
+    <p class="lead">The fox approaches in stages, and walking at any point before it trusts you makes it bolt. It comes back warier each time. Once it trusts you, your body stays still to the end and only your gaze follows it.</p>
+    <div class="strip" style="margin-top:24px">
+      <figure><img class="shot" loading="lazy" src="../img/bestill/01_torch.webp" alt="First-person view: a gloved hand holds a torch on a snowy forest path" width="1280" height="720"><figcaption><span class="num">Walk.</span> The torch lights a narrow path through an endless forest.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/02_eyes.webp" alt="Dark forest with pairs of glowing eyes and a small fox far down the path" width="1280" height="720"><figcaption><span class="num">The gust.</span> The torch dies. Sparks drift, eyes blink in the trees, and far down the path, something waits.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/03_curious.webp" alt="The fox stands on the moonlit path, facing the player" width="1280" height="720"><figcaption><span class="num">Be still.</span> It appears, freezes, trots closer and watches you with its head tilted.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/04_trust.webp" alt="Close view of the fox looking up at the player, tail flame raised" width="1280" height="720"><figcaption><span class="num">Trust.</span> It sniffs and wags, then brushes past your leg.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/05_awakening.webp" alt="The fox glowing brighter, sparks rising into the trees" width="1280" height="720"><figcaption><span class="num">Awakening.</span> Colour runs through its fur from head to tail and out into the forest.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/06_frolic.webp" alt="The fox leaping in a clearing under aurora, with a bear, elk, deer and swan around it" width="1600" height="720"><figcaption><span class="num">Play.</span> Under the aurora, spirit animals step out of the dark and the fox runs off to play with them.</figcaption></figure>
+    </div>
+    <div class="grid g2" style="margin-top:28px">
+      <div>
+        <h3>Folklore, read loosely</h3>
+        <p>In Finnish, the northern lights are <i>revontulet</i>, "fox fires": sparks thrown up by the tail of a fox running across the fells. Forest spirits (<i>metsänhaltija</i>) are often said to take animal form. Be Still is my own interpretation of these stories, not a retelling.</p>
+      </div>
+      <div>
+        <h3>Behaviour as a state machine</h3>
+        <p>Hidden → Appear → Freeze → Closer → Curious → Approach → Sniff → Trust → Brush → Settle → Play, with Bolt reachable from every stage before Trust. Each state picks its clip and its movement speed, and the camera's gaze drifts toward the fox's face more strongly as trust grows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fox">
+  <div class="wrap">
+    <div class="eyebrow">Character</div>
+    <h2>Modelling, texturing, rigging and animating the fox</h2>
+    <p class="lead">I modelled the fox as a game-ready mesh, unwrapped and textured it, then built a lean custom rig instead of a general-purpose auto-rig: cheap enough for the browser, complete enough to animate.</p>
+    <figure style="margin-top:20px">
+      <img class="shot" loading="lazy" src="../img/bestill/fox_model.webp" alt="The fox's UV layout, its game-ready wireframe in Blender, and the untextured model" width="1640" height="728">
+      <figcaption>UV layout, game-ready topology and the clean model before texturing.</figcaption>
+    </figure>
+    <div class="grid g2" style="margin-top:20px">
+      <figure><img class="shot" loading="lazy" src="../img/bestill/rig_body.webp" alt="Fox mesh in Blender with rig controls: paw squares, spine, tail and look controls" width="1510" height="1055"><figcaption>Body controls: digitigrade IK legs with paw squares and heel roll, FK spine and neck, and a layered tail.</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/rig_face.webp" alt="Grid of fox face poses: blinks, jaw open, tongue out, snarl" width="1200" height="1200"><figcaption>The face rig: jaw, three-bone tongue, lids, nose, eyes and fleshy socket controls for blinks.</figcaption></figure>
+    </div>
+    <div class="grid g2" style="margin-top:28px">
+      <div>
+        <h3>Rig</h3>
+        <ul class="ticks">
+          <li>107 bones, 56 of them deform bones, skinned at 4 influences for Unity.</li>
+          <li>Legs: digitigrade IK with paw squares and heel roll, then flex, tip and heel controls plus an auto-heel slider. I added these after the first animation pass showed the paws were too limited.</li>
+          <li>The 2.9 m mythical tail (the body is a real fox's size) has a master control plus additive per-bone controls, so big arcs and small flicks stay separate.</li>
+          <li>A look target with a blend slider lets the head track the player without counter-animating.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Animation</h3>
+        <ul class="ticks">
+          <li>15 clips, including idle, walk, trot, freeze and hold, curious, sniff, tail wag, leg brush, settle and sitting idle, bolt, gallop, play and pounce.</li>
+          <li>I'm re-animating each clip by hand for the final version. The idle, walk, trot, curious, sniff, freeze, gallop and settle clips are done; play, leg brush, pounce and bolt are next.</li>
+          <li>Locomotion is in place. The game moves the fox at each clip's measured stride speed, so the paws stay planted. I checked this with an in-engine probe that reports paw slide for each state.</li>
+          <li>Every clip keys the full control set, so no pose leaks from one clip into the next during export.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="world">
+  <div class="wrap">
+    <div class="eyebrow">World</div>
+    <h2>Spirit animals and the winter forest</h2>
+    <p class="lead">When the fox trusts you, a bear, a deer, an elk and a swan step out of the dark to play with it. They're shown here next to the fox for scale. The forest is built from a small low-poly kit that the game streams along an endless path.</p>
+    <div class="gallery animals" style="margin-top:24px">
+      <figure><img class="shot" loading="lazy" src="../img/bestill/spirit_bear.webp" alt="Low-poly bear model beside the fox" width="580" height="430"><figcaption>Bear</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/spirit_deer.webp" alt="Low-poly deer with antlers beside the fox" width="530" height="550"><figcaption>Deer</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/spirit_elk.webp" alt="Low-poly elk (moose) with broad antlers beside the fox" width="530" height="550"><figcaption>Elk</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/spirit_swan.webp" alt="Low-poly swan in flight beside the fox" width="560" height="340"><figcaption>Swan</figcaption></figure>
+    </div>
+    <h3 style="margin-top:36px">Environment props</h3>
+    <p>Pines, young pines, shrubs, rocks and stumps, flat-shaded with snow baked into the vertex colours, so the whole forest shares one shader and no textures.</p>
+    <div class="gallery" style="margin-top:16px">
+      <figure><img class="shot" loading="lazy" src="../img/bestill/prop_pines_tall.webp" alt="Two tall snowy low-poly pines" width="700" height="590"><figcaption>Tall pines</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/prop_pines_young.webp" alt="Two young snowy low-poly pines" width="700" height="450"><figcaption>Young pines</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/prop_shrubs.webp" alt="Two snow-covered shrubs" width="700" height="340"><figcaption>Snowy shrubs</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/prop_rocks.webp" alt="Two low-poly rocks" width="700" height="280"><figcaption>Rocks</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/prop_stones.webp" alt="Two low flat stones" width="700" height="170"><figcaption>Ground stones</figcaption></figure>
+      <figure><img class="shot" loading="lazy" src="../img/bestill/prop_stumps.webp" alt="Two dark tree stumps with snow" width="700" height="300"><figcaption>Stumps</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="tech">
+  <div class="wrap">
+    <div class="eyebrow">Technical art</div>
+    <h2>Soft fur and a tail of fire, in a browser</h2>
+    <div class="grid g2">
+      <figure><img class="shot" loading="lazy" src="../img/bestill/fur_close.webp" alt="Close-up of the fox's head with shell-rendered fur and gold eyes" width="1180" height="900"><figcaption>Shell fur close-up in Unity, 32 layers.</figcaption></figure>
+      <div>
+        <ul class="ticks">
+          <li><b>Shell fur:</b> a custom URP shader draws the fur as stacked shells, with strand locks and coat lag driven by the body's motion. Colour and fur direction come from maps baked per pixel from the mesh and bone masks, so the markings don't show the low-poly surface.</li>
+          <li><b>Auto quality:</b> 32 layers on PC; 10 in the browser, dropping to 6 when the camera is close to the head, then render scale if the frame rate stays low. A fur test scene (fox and ground only) ran at about 45 fps on Intel UHD integrated graphics at 1080p.</li>
+          <li><b>Flame tail:</b> 70 crossed-ribbon flame tongues, skinned to the tail bones and rendered additively. They fade out near the camera so they never streak across the view.</li>
+          <li><b>Awakening:</b> one value drives a colour wave through the fur, the embers turning into aurora curtains, and a colour grade blending from deep winter night (<i>kaamos</i>) to awakened.</li>
+          <li><b>Night forest:</b> an endless path streamed in 16 m chunks, snow and pine-needle shaders, fog that closes in when the torch dies, and 20 pairs of eyes that open when you stop.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card wip" style="margin-top:28px">
+      <h3>Still in progress</h3>
+      <p>The last four clips are being re-animated by hand, and the trust moment still needs its sound and halo. The browser build of the full game is being tested on integrated graphics. A playable build will go on <a href="https://chimex.itch.io">itch.io</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="eyebrow">Tools used</div>
+    <h2>Stack</h2>
+    <ul class="chips">
+      <li>Blender 5.2</li><li>Unity 6 URP</li><li>HLSL shaders</li><li>C#</li><li>WebGL</li><li>Google Flow (concepts)</li><li>Claude Code</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap row" style="justify-content:space-between">
+    <span>© 2026 Samuel Chimezie Okeke · Be Still</span>
+    <a href="../">← All work</a>
+  </div>
+</footer>
+</body>
+</html>
