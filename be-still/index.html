@@ -20,6 +20,7 @@
   .hero .shot { box-shadow: 0 30px 80px rgba(0,0,0,.5); width: 100%; }
   .hero .stats { margin: 0; }
   .gallery { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); align-items: start; }
+  video.shot { width: 100%; height: auto; display: block; background: #7d7d7d; }
   .gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: #3f4e66; }
   .gallery.animals img { background: #5f5f63; }
   .quote { font-size: clamp(20px, 2.6vw, 26px); font-weight: 800; color: var(--teal); margin: 0 0 14px; }
@@ -105,6 +106,12 @@
     <div class="grid g2" style="margin-top:20px">
       <figure><img class="shot" loading="lazy" src="../img/bestill/rig_body.webp" alt="Fox mesh in Blender with rig controls: paw squares, spine, tail and look controls" width="1510" height="1055"><figcaption>Body controls: digitigrade IK legs with paw squares and heel roll, FK spine and neck, and a layered tail.</figcaption></figure>
       <figure><img class="shot" loading="lazy" src="../img/bestill/rig_face.webp" alt="Grid of fox face poses: blinks, jaw open, tongue out, snarl" width="1200" height="1200"><figcaption>The face rig: jaw, three-bone tongue, lids, nose, eyes and fleshy socket controls for blinks.</figcaption></figure>
+    </div>
+    <h3 style="margin-top:36px">Animation clips</h3>
+    <p>Two of my hand-animated clips, played straight from Blender on the game mesh.</p>
+    <div class="grid g2" style="margin-top:12px">
+      <figure><video class="shot" src="../img/bestill/anim_curious.mp4" poster="../img/bestill/anim_curious_poster.webp" width="1280" height="720" autoplay muted loop playsinline preload="metadata" aria-label="Fox_Curious animation: the fox watches the visitor, tilting its head"></video><figcaption><b>Curious</b>: 140-frame loop, 30 fps. The fox stops on the path and studies the visitor before it dares come closer.</figcaption></figure>
+      <figure><video class="shot" src="../img/bestill/anim_settle.mp4" poster="../img/bestill/anim_settle_poster.webp" width="1280" height="720" autoplay muted loop playsinline preload="metadata" aria-label="Fox_Settle animation: the fox sits down and wraps its tail around itself"></video><figcaption><b>Settle</b>: 75 frames, 30 fps. After the rub, the fox sits beside the visitor and curls its tail around itself.</figcaption></figure>
     </div>
     <div class="grid g2" style="margin-top:28px">
       <div>
